@@ -31,3 +31,5 @@ Route::middleware([
 Route::get('/books',[BookController::class,'index']);
 
 Route::post('book/store',[BookController::class, 'postBook'])->name('post_book');
+
+Route::get('book/delete/{id}',[BookController::class,'bookDelete'])->name('book_delete');

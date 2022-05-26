@@ -29,4 +29,11 @@ class BookController extends Controller
     $book->save();
     return back();
   }
+
+  public function bookDelete(int $id){
+    Book::where('id',$id)->delete();
+    return back();
+  }
+
+
 }

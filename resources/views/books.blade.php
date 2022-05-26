@@ -18,6 +18,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Author</th>
                 <th scope="col">Number</th>
+                <th scope="col">Transactions</th>
               </tr>
             </thead>
             <tbody>
@@ -27,6 +28,9 @@
                   <th scope="col">{{$book->name}}</th>
                   <th scope="col">{{$book->author}}</th>
                   <th scope="col">{{$book->isbn_number}}</th>
+                  <th>
+                    <a href="{{route('book_delete',['id'=>$book->id]) }}" class="btn btn-sm btn-danger">Delete</a>
+                  </th>
                 </tr>
               @endforeach
             </tbody>
