@@ -28,8 +28,12 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/books',[BookController::class,'index']);
+Route::get('/books',[BookController::class,'index'])->name('book_list');
 
 Route::post('book/store',[BookController::class, 'postBook'])->name('post_book');
 
 Route::get('book/delete/{id}',[BookController::class,'bookDelete'])->name('book_delete');
+
+Route::get('book/update/{id}',[BookController::class, 'getBookUpdate'])->name('get_book_update');
+
+Route::post('book/update',[BookController::class,'bookupdate'])->name('book_update');

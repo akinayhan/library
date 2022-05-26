@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"/>
-    <link rel="stylesheet" href="css/mdb.min.css" />
+    <link rel="stylesheet" href="{{asset('css/mdb.min.css')}}" />
     <title>Books</title>
   </head>
   <body>
@@ -30,37 +30,41 @@
                   <th scope="col">{{$book->isbn_number}}</th>
                   <th>
                     <a href="{{route('book_delete',['id'=>$book->id]) }}" class="btn btn-sm btn-danger">Delete</a>
+                    <a href="{{route('get_book_update',['id'=>$book->id]) }}" class="btn btn-sm btn-info">Update</a>
                   </th>
                 </tr>
               @endforeach
             </tbody>
           </table>
         </div>
-        <div class="col-md-4">
-          <form method="POST" action="{{url('book/store')}}">
-            {{csrf_field()}}
-            <div class="form-outline mb-4">
-              <input type="text" id="name" name="name" class="form-control" />
-              <label class="form-label" for="form1Example1">Book Name</label>
-            </div>
-            <div class="form-outline mb-4">
-              <input type="text" id="author" name="author" class="form-control" />
-              <label class="form-label" for="form1Example1">Author</label>
-            </div>
-            <div class="form-outline mb-4">
-              <input type="text" id="isbn_number" name="isbn_number" class="form-control" />
-              <label class="form-label" for="form1Example1">ISBN Number</label>
-            </div>
-            <div class="form-outline mb-4">
-              <input type="text" id="images" name="images" class="form-control" />
-              <label class="form-label" for="form1Example1">Images</label>
-            </div>
-            <input type="submit" name="save" value="save" class="btn btn-info btn-block">
-          </form>
-        </div>
+        @if (isset($firstBook))
+          <div class="col-md-4">
+            <form method="POST" action="{{isset($firstBook) ?  url('book/update') : url('book/store')}}">
+              @csrf
+              <div class="form-outline mb-4">
+                <input type="text" id="name" name="name" value="{{$firstBook->name ?? ''}}" class="form-control" />
+                <label class="form-label" for="form1Example1">Book Name</label>
+              </div>
+              <div class="form-outline mb-4">
+                <input type="text" id="author" name="author" value="{{$firstBook->author ?? ''}}" class="form-control" />
+                <label class="form-label" for="form1Example1">Author</label>
+              </div>
+              <div class="form-outline mb-4">
+                <input type="text" id="isbn_number" name="isbn_number" value="{{$firstBook->isbn_number ?? ''}}" class="form-control" />
+                <label class="form-label" for="form1Example1">ISBN Number</label>
+              </div>
+              <div class="form-outline mb-4">
+                <input type="text" id="images" name="images" value="{{$firstBook->images ?? ''}}" class="form-control" />
+                <label class="form-label" for="form1Example1">Images</label>
+              </div>
+              {{!! isset($firstBook) ? '<input type="hidden" name="id" value="'.$firstBook->id.'">' : '' !!}}
+              <input type="submit" name="save" value="{{isset($firstBook) ? 'Update':'Save'}}" class="btn btn-info btn-block">
+            </form>
+          </div>
+        @endif
       </div>
 
     </div>
   </body>
-      <script type="text/javascript" src="js/mdb.min.js"></script>
+      <script type="text/javascript" src="{{asset('js/mdb.min.js')}}"></script>
 </html>
